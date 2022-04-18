@@ -27,7 +27,7 @@ jobs:
       - name: Log in to container registry
         uses: docker/login-action@v1
         with:
-          registry: ansalemocontainerregistry.azurecr.io
+          registry: https://ajssalemo.docker.io
           username: ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_USERNAME }}
           password: ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_PASSWORD }}
 
@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ansalemocontainerregistry.azurecr.io/ansalemo-ca-test-php:${{ github.sha }}
+          tags: https://ajssalemo.docker.io/ansalemo-ca-test-php:${{ github.sha }}
           file: ./Dockerfile
           context: ./
 
@@ -58,5 +58,5 @@ jobs:
             echo "Installing containerapp extension"
             az config set extension.use_dynamic_install=yes_without_prompt
             echo "Starting Deploying"
-            az containerapp registry set -n ansalemo-ca-test-php -g ansalemo-ca-test-rg --server ansalemocontainerregistry.azurecr.io --username  ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_USERNAME }} --password ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_PASSWORD }}
-            az containerapp update -n ansalemo-ca-test-php -g ansalemo-ca-test-rg --image ansalemocontainerregistry.azurecr.io/ansalemo-ca-test-php:${{ github.sha }}
+            az containerapp registry set -n ansalemo-ca-test-php -g ansalemo-ca-test-rg --server https://ajssalemo.docker.io --username  ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_USERNAME }} --password ${{ secrets.ANSALEMOCATESTPHP_REGISTRY_PASSWORD }}
+            az containerapp update -n ansalemo-ca-test-php -g ansalemo-ca-test-rg --image https://ajssalemo.docker.io/ansalemo-ca-test-php:${{ github.sha }}
